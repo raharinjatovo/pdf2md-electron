@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+installer/
+
+# Input/output data (not part of source)
+pdf/
+output/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Electron cache
+.electron/
+
+# env
+.env
+.env.*

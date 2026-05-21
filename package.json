@@ -1,0 +1,47 @@
+{
+  "name": "pdf2md-project",
+  "version": "1.0.0",
+  "description": "Convert PDF files to Markdown — Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "electron-packager . PDF-to-Markdown --platform=win32 --arch=x64 --out=dist --overwrite --ignore=^/dist --ignore=^/pdf --ignore=^/output",
+    "installer": "node scripts/build-installer.js",
+    "release": "npm run build && npm run installer"
+  },
+  "dependencies": {
+    "@opendocsg/pdf2md": "^0.2.1",
+    "electron-squirrel-startup": "^1.0.1"
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.0.0",
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-winstaller": "^5.4.0"
+  },
+  "build": {
+    "appId": "com.pdf2md.app",
+    "productName": "PDF to Markdown",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "sign": null,
+      "signingHashAlgorithms": null
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
