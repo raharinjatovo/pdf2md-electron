@@ -37,9 +37,6 @@ jobs:
             "PDF-to-Markdown-mac.zip"
 
       - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.event.inputs.tag }}
-          files: PDF-to-Markdown-mac.zip
+        run: gh release upload ${{ github.event.inputs.tag }} PDF-to-Markdown-mac.zip --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
