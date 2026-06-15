@@ -30,11 +30,14 @@ jobs:
       - name: Build macOS app
         run: npm run build:mac
 
+      - name: Inspect build output
+        run: find dist -maxdepth 3 -name "*.app" -o -name "*.exe" | head -20
+
       - name: Package as zip
         run: |
-          ditto -c -k --keepParent \
-            "dist/PDF-to-Markdown-darwin-x64/PDF-to-Markdown.app" \
-            "PDF-to-Markdown-mac.zip"
+          APP=$(find dist -maxdepth 3 -name "*.app" | head -1)
+          echo "Found: $APP"
+          ditto -c -k --keepParent "$APP" "PDF-to-Markdown-mac.zip"
 
       - name: Upload to GitHub Release
         run: gh release upload ${{ github.event.inputs.tag }} PDF-to-Markdown-mac.zip --clobber
