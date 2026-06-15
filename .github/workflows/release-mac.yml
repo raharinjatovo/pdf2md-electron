@@ -28,13 +28,17 @@ jobs:
         run: npm install
 
       - name: Build macOS app
-        run: npx electron-packager . PDF-to-Markdown --platform=darwin --arch=x64 --out=dist --overwrite
+        run: |
+          mkdir -p dist
+          npx electron-packager . PDF-to-Markdown --platform=darwin --arch=arm64 --out=dist --overwrite
+          echo "exit code: $?"
+          find dist -name "*.app" 2>/dev/null || echo "no .app found"
 
       - name: Package as zip
         run: |
           ls dist/
           ditto -c -k --keepParent \
-            "dist/PDF-to-Markdown-darwin-x64/PDF-to-Markdown.app" \
+            "dist/PDF-to-Markdown-darwin-arm64/PDF-to-Markdown.app" \
             "PDF-to-Markdown-mac.zip"
 
       - name: Upload to GitHub Release
